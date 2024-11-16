@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrix Background with Form</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: black;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+
+      canvas {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 0; /* خلفية */
+      }
+
+      .form-container {
+        position: relative;
+        z-index: 1; /* فوق الخلفية */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form {
+        background: rgba(0, 0, 0, 0.7); /* شفافية لجعل الخلفية مرئية */
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        color: #fff;
+        text-align: center;
+      }
+
+      .form h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+      }
+
+      .form input,
+      .form button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .form input {
+        background: #222;
+        color: #fff;
+      }
+
+      .form button {
+        background: #f4427d;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .form button:hover {
+        background: #d1376a;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="c"></canvas>
+
+    <div class="form-container">
+      <div class="form">
+        <h1>Login</h1>
+        <input type="text" placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button>Submit</button>
+      </div>
+    </div>
+
+    <script>
+      var c = document.getElementById("c");
+      var ctx = c.getContext("2d");
+
+      //making the canvas full screen
+      c.height = window.innerHeight;
+      c.width = window.innerWidth;
+
+      //chinese characters - taken from the unicode charset
+      var matrix =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+      //converting the string into an array of single characters
+      matrix = matrix.split("");
+
+      var font_size = 10;
+      var columns = c.width / font_size; //number of columns for the rain
+      //an array of drops - one per column
+      var drops = [];
+      //x below is the x coordinate
+      //1 = y co-ordinate of the drop(same for every drop initially)
+      for (var x = 0; x < columns; x++) drops[x] = 1;
+
+      //drawing the characters
+      function draw() {
+        //Black BG for the canvas
+        //translucent BG to show trail
+        ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        ctx.fillStyle = "#f4427d"; //red text
+        ctx.font = font_size + "px arial";
+        //looping over drops
+        for (var i = 0; i < drops.length; i++) {
+          //a random chinese character to print
+          var text = matrix[Math.floor(Math.random() * matrix.length)];
+          //x = i*font_size, y = value of drops[i]*font_size
+          ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+          //sending the drop back to the top randomly after it has crossed the screen
+          if (drops[i] * font_size > c.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+          //incrementing Y coordinate
+          drops[i]++;
+        }
+      }
+
+      setInterval(draw, 35);
+    </script>
+  </body>
+</html>
