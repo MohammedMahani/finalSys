@@ -42,7 +42,7 @@
     <link href="css/style.css" rel="stylesheet" />
   </head>
 
-  <body>
+  <body onload="init()">
     <div class="container-fluid position-relative d-flex p-0">
       <!-- Spinner Start -->
       <div
@@ -200,21 +200,28 @@
               <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">Add Beneficiaries</h6>
                 <div>
-                  <label for="formFileLg" class="form-label">Upload Data</label>
-                  <input
+                  <form id="importForm">
+                    <label for="formFileLg" class="form-label">Upload Data</label>
+                  <!-- <input
                     class="form-control form-control-lg bg-dark"
                     id="upload-input"
+                    name="datafile"
                     type="file"
                   />
+                  <pre id="'fileContent"></pre> -->
+                  <input id="fileInput" type="file" name="file" />
+                  <pre id="fileContent"></pre>=
+                
                 </div>
                 <button
-                  type="submit"
+                  type="button"
                   class="btn btn-primary"
                   id="upload-btn"
                   style="margin-top: 20px"
                 >
                   Upload
                 </button>
+              </form>
               </div>
             </div>
           </div>

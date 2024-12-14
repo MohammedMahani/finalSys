@@ -34,14 +34,21 @@ const uploadData = (req, res) => {
           for (const row of results) {
             const beneficiaryData = {
               org_id: orgId, // Use org_id from the request
-              name: row.name,
+              first_name: row.first_name,
+              second_name: row.second_name,
+              third_name: row.third_name,
               last_name: row.last_name,
               age: row.age,
               passport: row.passport,
               gender: row.gender,
               address: row.address,
               phone_number: row.phone_number,
-              status: row.status,
+              rent: row.rent,
+              furniture: row.furniture,
+              clothes: row.clothes,
+              medical: row.medical,
+              pocket_money: row.pocket_money,
+              other: row.other,
             };
 
             try {

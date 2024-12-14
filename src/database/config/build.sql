@@ -18,15 +18,22 @@ CREATE TABLE organizations (
 CREATE TABLE beneficiaries (
 		bid SERIAL PRIMARY KEY,
 		org_id INT REFERENCES organizations(org_id) ON DELETE SET NULL,
-		name VARCHAR(100),
+		first_name VARCHAR(100),
+		second_name VARCHAR(100),
+		third_name VARCHAR(100),
 		last_name VARCHAR(100),
 		age INT,
-		passport VARCHAR(20),
+		id_number VARCHAR(30),
+		passport VARCHAR(30),
 		gender VARCHAR(10),
 		address VARCHAR(200),
 		phone_number VARCHAR(20),
-		status VARCHAR(500),
-		UNIQUE (passport)  -- Unique constraint to prevent duplicate names and last names
+		rent VARCHAR(50),
+		furniture VARCHAR(50),
+		clothes VARCHAR(50),
+		medical VARCHAR(50),
+		pocket_money VARCHAR(50),
+		other VARCHAR(50)
 );
 
 -- Create auth table for authentication
